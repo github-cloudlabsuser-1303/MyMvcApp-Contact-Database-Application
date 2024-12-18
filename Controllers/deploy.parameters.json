@@ -1,0 +1,54 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "resources": [
+      {
+        "type": "Microsoft.Web/sites",
+        "apiVersion": "2021-02-01",
+        "name": "[parameters('appName')]",
+        "location": "[parameters('location')]",
+        "properties": {
+          "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('appServicePlanName'))]"
+        }
+      },
+      {
+        "type": "Microsoft.Web/serverfarms",
+        "apiVersion": "2021-02-01",
+        "name": "[parameters('appServicePlanName')]",
+        "location": "[parameters('location')]",
+        "sku": {
+          "name": "B1",
+          "tier": "Basic",
+          "size": "B1",
+          "family": "B",
+          "capacity": 1
+        },
+        "properties": {
+          "reserved": false
+        }
+      }
+    ],
+    "parameters": {
+      "appName": {
+        "type": "string",
+        "metadata": {
+          "description": "Name of the web app."
+        }
+      },
+      "location": {
+        "type": "string",
+        "defaultValue": "West US",
+        "metadata": {
+          "description": "Location for the resources."
+        }
+      },
+      "appServicePlanName": {
+        "type": "string",
+        "defaultValue": "myAppServicePlan",
+        "metadata": {
+          "description": "Name of the App Service plan."
+        }
+      }
+    }
+  }
+  
