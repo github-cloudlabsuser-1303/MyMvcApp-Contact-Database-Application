@@ -25,13 +25,13 @@ jobs:
       run: dotnet build --configuration Release
 
     - name: Publish the project
-      run: dotnet publish -c Release -o D:\a\MyMvcApp-Contact-Databse-Application\MyMvcApp-Contact-Databse-Application\bin\Release\net8.0\MyMvcApp
+      run: dotnet publish -c Release -o ${(env.DOTNET_ROOT)}/myapp
 
     - name: Upload artifact for deployment job
       uses: actions/upload-artifact@v2
       with:
-        name: MyMvcApp
-        path: D:\a\MyMvcApp-Contact-Databse-Application\MyMvcApp-Contact-Databse-Application\bin\Release\net8.0\MyMvcApp
+        name: .net-app
+        path: ${(env.DOTNET_ROOT)}/myapp
 
     - name: Deploy to Azure Web App
       uses: azure/webapps-deploy@v2
